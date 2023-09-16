@@ -1,0 +1,43 @@
+﻿@using StockManagementSystem.Models;
+@model StockManagementSystem.Models.StockIn
+
+@{
+    IEnumerable<Company> _company = ViewData["_comp"] as IEnumerable<Company>;
+    IEnumerable<Item> _items = ViewData["Items"] as IEnumerable<Item>;
+    ViewData["Title"] = "StockIn";
+    Layout = "_Layout";
+}
+<div class="mt-2" style="width:50%">
+    <form asp-action="Create">
+        <h2>Add Item</h2>
+        <label asp-for="CompanyId" class="mb-1" for="Company">Company</label>
+        <select class="form-select mt-2" id="Company" P asp-for="CompanyId">
+            @foreach (var y in _company)
+            {
+                <option asp-for="Companyid" value="@y.Id">@y.Name</option>
+            }
+
+        </select>
+        <label asp-for="ItemId" class="mb-1" for="Item">Item</label>
+        <select class="form-select mt-2" id="Item" P asp-for="ItemId">
+            @foreach (var y in _items)
+            {
+                <option asp-for="ItemId" value="@y.Id">@y.Name</option>
+            }
+        </select>
+        <div class="mb-3">
+            <label asp-for="AvailableQuantity" class="form-label">AvailableQuantity</label>
+            <output asp-for="AvailableQuantity" type="number" class="form-control">
+            <span class="text-danger" asp-validation-for="AvailableQuantity"></span>
+            
+        </div>
+        <div class="mb-3">
+            <label asp-for="ReOrderLevel" class="form-label">ReOrder Level</label>
+            <input asp-for="ReOrderLevel" type="number" class="form-control">
+            <span class="text-danger" asp-validation-for="ReOrderLevel"></span>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="/Item/Show" class="btn btn-primary">Show All Items</a>
+    </form>
+</div>
